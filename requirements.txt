@@ -5,3 +5,4 @@ Flask-Session
 passlib
 SQLAlchemy
 psycopg2-binary
+requests
