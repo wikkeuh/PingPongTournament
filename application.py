@@ -31,7 +31,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///pingpong.db")
+db = SQL("postgres://ppaikjrazrltwg:d7b4bbbaa8d1470e42a97e2d58a4d7ba752d007ecfc85d67daf913a8284c3421@ec2-46-137-121-216.eu-west-1.compute.amazonaws.com:5432/df5rrijrug19j9
+")
 
 
 @app.route("/")
