@@ -229,6 +229,11 @@ def errorhandler(e):
 for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
 
+if __name__ == ‘__main__’:
+ app.debug = True
+ port = int(os.environ.get(“PORT”, 5000))
+ app.run(host=’0.0.0.0', port=port)
+
 #GENERATE COMPS FUNCTION WIP
 #for user in ranking:
 #    for user in ranking:
