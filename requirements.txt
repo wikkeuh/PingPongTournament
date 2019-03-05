@@ -1,1 +1,7 @@
 gunicorn
+cs50
+Flask
+Flask-Session
+passlib
+SQLAlchemy
+psycopg2
