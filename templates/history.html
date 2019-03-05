@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+<table class="table table-sm table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Wedstrijd #</th>
+                    <th scope="col">speler 1</th>
+                    <th scope="col">speler 2</th>
+                    <th scope="col">Tijd</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for game in games %}
+                <tr>
+                <td>{{ game["matchid"] }}</td>
+
+                <td>
+                {% if game["winnerid"] == game["idplayerone"] %}
+                <span id="winner">
+                {% endif %}
+
+                {{ game["playone"] }}<b> : {{ game["setsplayerone"] }}</b>
+
+                {% if game["winnerid"] == game["idplayerone"] %}
+                </span>
+                {% endif %}
+                </td>
+
+                <td>
+                {% if game["winnerid"] == game["idplayertwo"] %}
+                <span id="winner">
+                {% endif %}
+
+                {{ game["playtwo"] }}<b> : {{ game["setsplayertwo"] }}</b>
+
+                {% if game["winnerid"] == game["idplayertwo"] %}
+                </span>
+                {% endif %}
+                </td>
+
+                <td>{{ game["time"] }}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+{% endblock %}

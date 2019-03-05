@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <h1 style="margin-left:auto;margin-right:auto">Voer hier de resultaten in</h1>
+    <a>Kies je tegenstander uit de lijst en vul de gewonnen sets in</a>
+    <br>
+    <form action="/input" method="post">
+        </br>
+        <select name="player2">
+                {% for player in opponents %}
+
+                      <option value="{{player["id"]}}">{{player["username"]}}</option>
+                {% endfor %}
+        </select>
+        </br>
+        </br>
+        <table align="center">
+        <tr><th colspan="2"><h3>Set 1</h3></th></tr>
+        <tr><td>
+        <div class="form-group">
+            speler 1*<br>
+            <input class="form-control" name="playeronescore" type="number" min="0" >
+        </div>
+        </td>
+        <td>
+        <div class="form-group">
+            speler 2*<br>
+            <input class="form-control" name="playertwoscore" type="number" min="0">
+        </div>
+        </td></tr>
+        <tr><th colspan="2"><h3>Set 2</h3></th></tr>
+        <tr><td>
+        <div class="form-group">
+            speler 1*<br>
+            <input class="form-control" name="playeronescore" type="number" min="0">
+        </div>
+        </td>
+        <td>
+        <div class="form-group">
+            speler 2*<br>
+            <input class="form-control" name="playertwoscore" type="number" min="0">
+        </div>
+        </td></tr>
+        <tr><th colspan="2"><h3>Set 3(optioneel)</h3></th></tr>
+        <tr><td>
+        <div class="form-group">
+            speler 1<br>
+            <input class="form-control" name="playeronescore" type="number" placeholder="optioneel" min="0">
+        </div>
+        </td>
+        <td>
+        <div class="form-group">
+            speler 2<br>
+            <input class="form-control" name="playertwoscore" type="number" placeholder="optioneel" min="0">
+        </div>
+        </td></tr>
+        </table>
+        <button class="btn btn-primary" type="submit">Invoeren</button>
+    </form>
+{% endblock %}

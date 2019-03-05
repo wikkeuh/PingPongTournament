@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <h1 style="margin-left:auto;margin-right:auto">Registreren</h1>
+    <br>
+    <form action="/register" method="post">
+        <div class="form-group">
+            Je gebruikersnaam is zichtbaar voor andere gebruikers.</br></br>
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Gebruikersnaam" type="text">
+
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="wachtwoord" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="wachtwoord bevestigen" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Registreer</button>
+    </form>
+{% endblock %}
