@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Home
+    {{ userinfo["username] }}
 {% endblock %}
 
 {% block main %}
@@ -15,6 +15,10 @@
                 </tr>
             </thead>
             <tbody>
+				<h1>{{ userinfo["username"] </h1></br>
+				<h2>Gewonnen :{{ userinfo["won"] }} Verloren: {{ userinfo["lost"] }}</h2></br>
+				<h2>Cash :{{ userinfo["cash"] }} Odds: {{ userinfo["odds"] }}</h2></br>
+				
                 {% for game in userinfo %}
                 <tr>
                 <td>{{ game["matchid"] }}</td>

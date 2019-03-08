@@ -7,7 +7,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required
+from helpers import apology, login_required, GenMatch
 
 # Configure application
 app = Flask(__name__)
@@ -226,9 +226,5 @@ def errorhandler(e):
 # Listen for errors
 for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
-
-
-#GENERATE COMPS FUNCTION WIP
-#for user in ranking:
-#    for user in ranking:
-#        print(user["username"])
+		
+					
