@@ -47,4 +47,4 @@ def GenMatch(user, db):
 		db.execute("""
 					INSERT into GAMES (idplayerone, idplayertwo) VALUES (:user, :opponent)
 					""", user = user, opponent = opponent["id"])
-		print ( user + "vs" + opponent["id"]
+		print ( user + "vs" + opponent["id"])
