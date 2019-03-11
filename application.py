@@ -125,21 +125,22 @@ def register():
             return apology("Passwords do not match", 400)
 
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = :username",
-                          username=request.form.get("username"))
+        rows = db.execute("SELECT * FROM users WHERE lower(username) = :username",
+                          username=str.lower(request.form.get("username")))
 
         # Ensure username not yet exists
         if len(rows) == 1:
             return apology("username already exists", 400)
         # Insert user into database USERS
         else:
-            db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)",
+            db.execute("""INSERT INTO users (username, hash) VALUES (:username, :hash)""",
                        username=request.form.get("username"), hash=generate_password_hash(request.form.get("password")))
-
             # Login the user and
-            rows2 = db.execute("SELECT * FROM users WHERE username = :username",
-            username=request.form.get("username"))
+            rows2 = db.execute("SELECT * FROM users WHERE lower(username) = :username",
+            username=str.lower(request.form.get("username")))
             session["user_id"] = rows2[0]["id"]
+            userid = rows2[0]["id"]
+            GenMatch(userid, db=db)
             return redirect("/")
 
     # Via Get when not post
@@ -205,18 +206,19 @@ def history():
 @login_required
 def userpage(id):
     print(id)
-    userinfo = db.execute("""
+    userinfo = db.execute(""" SELECT username, won, lost, odds FROM users WHERE id=:id""", id=id)
+    userhistory = db.execute("""
            SELECT g.idplayerone, g.idplayertwo, g.matchid, g.setsplayerone, g.setsplayertwo, g.winnerid, g.time,
                   p1.username playone,
                   p2.username playtwo
              FROM games g
-             JOIN users p1 ON g.idplayerone = p1.id
-             JOIN users p2 ON g.idplayertwo = p2.id
+       INNER JOIN users p1 ON g.idplayerone = p1.id
+       INNER JOIN users p2 ON g.idplayertwo = p2.id
              WHERE g.idplayerone = :id or g.idplayertwo = :id
          ORDER BY g.time DESC
         """, id=id)
     print(userinfo)
-    return render_template("user.html", userinfo=userinfo)
+    return render_template("user.html", userhistory=userhistory, userinfo=userinfo)
 
 def errorhandler(e):
     """Handle error"""
