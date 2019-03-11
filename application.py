@@ -80,7 +80,6 @@ def login():
         # Remember which user has logged in and acceslevel of user
         session["user_id"] = rows[0]["id"]
         session["user_level"] = rows[0]["userlevel"]
-        print(rows[0]["userlevel"])
 
 
         # Redirect user to home page
@@ -136,9 +135,10 @@ def register():
             db.execute("""INSERT INTO users (username, hash) VALUES (:username, :hash)""",
                        username=request.form.get("username"), hash=generate_password_hash(request.form.get("password")))
             # Login the user and
-            rows2 = db.execute("SELECT * FROM users WHERE lower(username) = :username",
-            username=str.lower(request.form.get("username")))
-            session["user_id"] = rows2[0]["id"]
+            rows = db.execute("""SELECT * FROM users WHERE lower(username) = :username""",
+                                  username=str.lower(request.form.get("username")))
+            session["user_id"] = rows[0]["id"]
+            session["user_level"] = rows[0]["userlevel"]
             userid = rows2[0]["id"]
             GenMatch(userid, db=db)
             return redirect("/")
