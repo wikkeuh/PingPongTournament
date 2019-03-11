@@ -215,6 +215,7 @@ def userpage(id):
              WHERE g.idplayerone = :id or g.idplayertwo = :id
          ORDER BY g.time DESC
         """, id=id)
+    print(userinfo)
     return render_template("user.html", userinfo=userinfo)
 
 def errorhandler(e):
