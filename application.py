@@ -201,7 +201,7 @@ def history():
         """)
     return render_template("history.html", games=games)
 
-@app.route("/user/id")
+@app.route("/user/<int:id>")
 @login_required
 def userpage(id):
     print(id)
