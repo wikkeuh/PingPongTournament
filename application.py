@@ -201,9 +201,10 @@ def history():
         """)
     return render_template("history.html", games=games)
 
-@app.route("/user/<id>")
+@app.route("/user/id")
 @login_required
 def userpage(id):
+    print(id)
     userinfo = db.execute("""
            SELECT g.idplayerone, g.idplayertwo, g.matchid, g.setsplayerone, g.setsplayertwo, g.winnerid, g.time,
                   p1.username playone,
