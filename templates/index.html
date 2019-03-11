@@ -23,7 +23,7 @@
                 {% for rank in ranking %}
                 <tr>
                 <td>{{ loop.index }}</td>
-                <td><a href="/user/<{{ rank["id"] }}>">{{ rank["username"] }}</a></td>
+                <td><a href="/user/{{ rank["id"] }}">{{ rank["username"] }}</a></td>
                 <td>{{ rank["won"] }}</td>
                 <td>{{ rank["lost"] }}</td>
                 <td>{{ rank["odds"] }}</td>
