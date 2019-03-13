@@ -124,22 +124,22 @@ def register():
             return apology("Passwords do not match", 400)
 
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE lower(username) = :username",
+        checkname = db.execute("SELECT * FROM users WHERE lower(username) = :username",
                           username=str.lower(request.form.get("username")))
 
         # Ensure username not yet exists
-        if len(rows) == 1:
+        if len(checkname) == 1:
             return apology("username already exists", 400)
         # Insert user into database USERS
         else:
             db.execute("""INSERT INTO users (username, hash) VALUES (:username, :hash)""",
-                       username=request.form.get("username"), hash=generate_password_hash(request.form.get("password")))
+                       username = request.form.get("username"), hash = generate_password_hash(request.form.get("password")))
             # Login the user and
             rows = db.execute("""SELECT * FROM users WHERE lower(username) = :username""",
                                   username=str.lower(request.form.get("username")))
             session["user_id"] = rows[0]["id"]
             session["user_level"] = rows[0]["userlevel"]
-            userid = rows2[0]["id"]
+            userid = rows[0]["id"]
             GenMatch(userid, db=db)
             return redirect("/")
 
@@ -159,15 +159,12 @@ def input():
         if len(checkcomp) >= 1:
             return apology("Je speelde reeds tegen deze tegenstander", 69)
         else:
-            setsplayerone = request.form.get("playeronescore")
-            setsplayertwo = request.form.get("playertwoscore")
-            #Determine Winner
-            if setsplayerone > setsplayertwo:
-                winner = session.get("user_id")
-                loser = request.form.get("player2")
-            else:
-                winner = request.form.get("player2")
-                loser = session.get("user_id")
+            p1s1 = request.form.get("p1s1")
+            p1s2 = request.form.get("p1s2")
+            p1s3 = request.form.get("p1s3")
+            p2s1 = request.form.get("p2s1")
+            p2s2 = request.form.get("p2s2")
+            p2s3 = request.form.get("p2s3")
 
             db.execute("INSERT INTO games (idplayerone, idplayertwo, setsplayerone, setsplayertwo, winnerid) VALUES (:idplayerone, :idplayertwo, :setsplayerone, :setsplayertwo, :winnerid)",
             idplayerone=session.get("user_id"), idplayertwo=request.form.get("player2"), setsplayerone=setsplayerone, setsplayertwo=setsplayertwo, winnerid=winner)
@@ -177,15 +174,15 @@ def input():
         return render_template("input.html")
 
     else:
-        opponents = db.execute("""
-                                  SELECT username, id
-                                    FROM users
-                                   WHERE id != :id
+        matches = db.execute("""
+                                  SELECT idplayerone, idplayertwo, matchid
+                                    FROM games
+                                   WHERE (idplayerone = :id OR idplayertwo = :id) AND winnerid = null
                                    """, id=session.get("user_id"))
-        if len(opponents) == 0:
-            return apology("Sorry, er zijn momenteel geen geschikte tegenstanders")
+        if len(matches) == 0:
+            return apology("Sorry, op dit moment zijn er geen wedstrijden voor jou. kijk later nog eens terug.")
         else:
-            return render_template("input.html", opponents=opponents)
+            return render_template("input.html", matches=matches)
 
 @app.route("/history", methods=["GET"])
 @login_required
@@ -230,4 +227,3 @@ def errorhandler(e):
 # Listen for errors
 for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
-

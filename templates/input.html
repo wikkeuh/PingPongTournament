@@ -1,19 +1,19 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Home
+    Wedstrijd invoeren
 {% endblock %}
 
 {% block main %}
     <h1 style="margin-left:auto;margin-right:auto">Voer hier de resultaten in</h1>
-    <a>Kies je tegenstander uit de lijst en vul de gewonnen sets in</a>
+    <a>Kies je tegenstander uit de lijst en vul de informatie in</a>
     <br>
     <form action="/input" method="post">
         </br>
         <select name="player2">
-                {% for player in opponents %}
+                {% for match in matches %}
 
-                      <option value="{{player["id"]}}">{{player["username"]}}</option>
+                      <option value="{{player["id"]}}">{{match["idplayerone"]}} VS {{match["idplayertwo"]}}</option>
                 {% endfor %}
         </select>
         </br>
@@ -23,39 +23,39 @@
         <tr><td>
         <div class="form-group">
             speler 1*<br>
-            <input class="form-control" name="playeronescore" type="number" min="0" >
+            <input class="form-control" name="p1s1" type="number" min="0" >
         </div>
         </td>
         <td>
         <div class="form-group">
             speler 2*<br>
-            <input class="form-control" name="playertwoscore" type="number" min="0">
+            <input class="form-control" name="p2s1" type="number" min="0">
         </div>
         </td></tr>
         <tr><th colspan="2"><h3>Set 2</h3></th></tr>
         <tr><td>
         <div class="form-group">
             speler 1*<br>
-            <input class="form-control" name="playeronescore" type="number" min="0">
+            <input class="form-control" name="p1s2" type="number" min="0">
         </div>
         </td>
         <td>
         <div class="form-group">
             speler 2*<br>
-            <input class="form-control" name="playertwoscore" type="number" min="0">
+            <input class="form-control" name="p2s2" type="number" min="0">
         </div>
         </td></tr>
         <tr><th colspan="2"><h3>Set 3(optioneel)</h3></th></tr>
         <tr><td>
         <div class="form-group">
             speler 1<br>
-            <input class="form-control" name="playeronescore" type="number" placeholder="optioneel" min="0">
+            <input class="form-control" name="p1s3" type="number" placeholder="optioneel" min="0">
         </div>
         </td>
         <td>
         <div class="form-group">
             speler 2<br>
-            <input class="form-control" name="playertwoscore" type="number" placeholder="optioneel" min="0">
+            <input class="form-control" name="p2s3" type="number" placeholder="optioneel" min="0">
         </div>
         </td></tr>
         </table>
