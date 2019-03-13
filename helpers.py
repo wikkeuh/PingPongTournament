@@ -37,14 +37,14 @@ def login_required(f):
 #Function to create match-ups for current user, matches with all excisting users
 def GenMatch(user, db):
 	#grab all users
-	opponents = db.execute(""" 
-							   SELECT id 
-							     FROM users 
+	opponents = db.execute("""
+							   SELECT id
+							     FROM users
 								WHERE id != :user
-								""")
-	# Generate the matches and put them in database							
+								""", user = user)
+	# Generate the matches and put them in database
 	for oppontent in opponents:
 		db.execute("""
 					INSERT into GAMES (idplayerone, idplayertwo) VALUES (:user, :opponent)
 					""", user = user, opponent = opponent["id"])
-		print ( user + "vs" + opponent["id"])
+		print ( "entering"user + "vs" + opponent["id"])

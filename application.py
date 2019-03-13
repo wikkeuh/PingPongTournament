@@ -159,13 +159,28 @@ def input():
         if len(checkcomp) >= 1:
             return apology("Je speelde reeds tegen deze tegenstander", 69)
         else:
-            p1s1 = request.form.get("p1s1")
-            p1s2 = request.form.get("p1s2")
-            p1s3 = request.form.get("p1s3")
-            p2s1 = request.form.get("p2s1")
-            p2s2 = request.form.get("p2s2")
-            p2s3 = request.form.get("p2s3")
-
+            results = []
+            counter = 0
+            for i in range(1, 3):
+                for j in range(1, 4):
+                    results[counter] = request.form.get("p",i,"s",j)
+                    print(results[counter])
+                    counter += 1
+            setsone = 0
+            setstwo = 0
+            for i in range (0, 6, 2)
+                if results[i] > results[i+1]:
+                    setsone += 1
+                if results[i] < results[i+1]:
+                    setstwo += 1
+            matchinfo = db.execute("""SELECT idplayerone, idplayertwo FROM games WHERE matchid=:matchid""", matchid = request.form.get("match"))
+            if setsone > setstwo:
+                winner = matchinfo[0]["idplayerone"]
+            elif setsone < setstwo:
+                winner = matchinfo[0]["idplayertwo"]
+            else:
+                return apology("Er liep iets mis! Heb je alle scores correct ingevuld? Probeer het opnieuw.", 69)
+            
             db.execute("INSERT INTO games (idplayerone, idplayertwo, setsplayerone, setsplayertwo, winnerid) VALUES (:idplayerone, :idplayertwo, :setsplayerone, :setsplayertwo, :winnerid)",
             idplayerone=session.get("user_id"), idplayertwo=request.form.get("player2"), setsplayerone=setsplayerone, setsplayertwo=setsplayertwo, winnerid=winner)
             db.execute("UPDATE users SET won = won + 1, odds = odds - 5 WHERE id=:id", id=winner)

@@ -10,10 +10,9 @@
     <br>
     <form action="/input" method="post">
         </br>
-        <select name="player2">
+        <select name="match">
                 {% for match in matches %}
-
-                      <option value="{{player["id"]}}">{{match["idplayerone"]}} VS {{match["idplayertwo"]}}</option>
+                      <option value="{{match["id"]}}">{{match["idplayerone"]}} VS {{match["idplayertwo"]}}</option>
                 {% endfor %}
         </select>
         </br>
