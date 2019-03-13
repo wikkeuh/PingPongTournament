@@ -134,13 +134,13 @@ def register():
         else:
             db.execute("""INSERT INTO users (username, hash) VALUES (:username, :hash)""",
                        username = request.form.get("username"), hash = generate_password_hash(request.form.get("password")))
-            # Login the user and
-            rows = db.execute("""SELECT * FROM users WHERE lower(username) = :username""",
-                                  username=str.lower(request.form.get("username")))
+            # Login the user and generate matches
+            rows = db.execute("""SELECT * FROM users WHERE username = :username""",
+                                  username=request.form.get("username"))
             session["user_id"] = rows[0]["id"]
             session["user_level"] = rows[0]["userlevel"]
             userid = rows[0]["id"]
-            GenMatch(userid, db=db)
+            #GenMatch(userid, db=db)
             return redirect("/")
 
     # Via Get when not post
