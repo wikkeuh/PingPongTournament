@@ -241,10 +241,10 @@ def userpage(id):
 def activate():
     if request.method == "POST":
         keycheck = db.execute("SELECT key FROM keys WHERE key=:key", key = request.form.get("key"))
-        if len(keycheck) == 0 and request.form.get("key") != "test":
+        if len(keycheck) == 0:
             return apology("Dit is geen geldige code, probeer het opnieuw")
         else:
-            db.execute("DELETE FROM keys WHERE key =:key", key = request.form.get("key"))
+            #db.execute("DELETE FROM keys WHERE key =:key", key = request.form.get("key"))
             db.execute("UPDATE users SET active = 1 WHERE id=:id", id = session.get("user_id"))
             userid = session.get("user_id")
             GenMatch(userid, db=db)
