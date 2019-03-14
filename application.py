@@ -236,8 +236,9 @@ def userpage(id):
     return render_template("user.html", userhistory=userhistory, userinfo=userinfo)
 
 @app.route("/activate", methods=["GET", "POST"])
+@login_required
 def activate():
-    if request.method== "POST":
+    if request.method == "POST":
         keycheck = db.execute("""SELECT key FROM keys WHERE key=:key)""", key = request.form.get("key")
         if len(keycheck) == 0:
             return apology("Dit is geen geldige code, probeer het opnieuw")
@@ -249,7 +250,7 @@ def activate():
             return apology("Je bent succesvol ingeschreven")
     else:
         render_template("activate.html)
-        
+
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
