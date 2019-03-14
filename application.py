@@ -239,12 +239,12 @@ def userpage(id):
 @login_required
 def activate():
     if request.method == "POST":
-        keycheck = db.execute("""SELECT key FROM keys WHERE key=:key)""", key = request.form.get("key"))
+        keycheck = db.execute("SELECT key FROM keys WHERE key=:key)", key = request.form.get("key"))
         if len(keycheck) == 0:
             return apology("Dit is geen geldige code, probeer het opnieuw")
         else:
-            db.execute("""DELETE FROM keys WHERE key =:key""", key = request.form.get("key"))
-            db.execute("""UPDATE users SET active = 1 WHERE id=:id""", id = id=session.get("user_id"))
+            db.execute("DELETE FROM keys WHERE key =:key", key = request.form.get("key"))
+            db.execute("UPDATE users SET active = 1 WHERE id=:id", id = session.get("user_id"))
             userid = session.get("user_id")
             GenMatch(userid, db=db)
             return apology("Je bent succesvol ingeschreven")
