@@ -249,7 +249,7 @@ def activate():
             GenMatch(userid, db=db)
             return apology("Je bent succesvol ingeschreven")
     else:
-        return render_template("activate.html)
+        return render_template("activate.html")
 
 def errorhandler(e):
     """Handle error"""
