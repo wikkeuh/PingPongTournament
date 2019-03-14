@@ -40,7 +40,7 @@ def GenMatch(user, db):
 	opponents = db.execute("""
 							   SELECT id
 							     FROM users
-								WHERE id != :user
+								WHERE id != :user AND active = 1
 								""", user = user)
 	# Generate the matches and put them in database
 	for oppontent in opponents:
