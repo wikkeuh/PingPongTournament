@@ -252,9 +252,9 @@ def activate():
     else:
         return render_template("activate.html")
 
-@app.route("/admin", methods=["GET", "POST"])
-@login_required
-def activate():
+#@app.route("/admin", methods=["GET", "POST"])
+#@login_required
+#def activate():
     #ToDo
 
 
