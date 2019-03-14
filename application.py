@@ -169,7 +169,7 @@ def input():
                     counter += 1
             setsone = 0
             setstwo = 0
-            for i in range (0, 6, 2)
+            for i in range (0, 6, 2):
                 if results[i] > results[i+1]:
                     setsone += 1
                 if results[i] < results[i+1]:
