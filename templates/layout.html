@@ -32,10 +32,10 @@
                 {% if session.user_id %}
                     <ul class="navbar-nav mr-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/">Klassement</a></li>
-                        {% if session.active == "1" %}
+                        {% if session.active == 1 %}
                         <li class="nav-item"><a class="nav-link" href="/input">Wedstrijd invoeren</a></li>
                         {% endif %}
-                        {% if session.active == "1" %}
+                        {% if session.active == 1 %}
                         <li class="nav-item"><a class="nav-link" href="/bet">Gokken</a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link" href="/history">Wedstrijdgeschiedenis</a></li>
