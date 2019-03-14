@@ -70,7 +70,7 @@ def login():
             return apology("must provide password", 403)
 
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE lower(username) = :username",
+        rows = db.execute("SELECT username, id, userlevel, active, hash FROM users WHERE lower(username) = :username",
                           username = str.lower(request.form.get("username")))
 
         # Ensure username exists and password is correct
@@ -80,6 +80,7 @@ def login():
         # Remember which user has logged in and acceslevel of user
         session["user_id"] = rows[0]["id"]
         session["user_level"] = rows[0]["userlevel"]
+        session["active"] = rows[0]["active"]
 
 
         # Redirect user to home page
@@ -180,7 +181,7 @@ def input():
                 winner = matchinfo[0]["idplayertwo"]
             else:
                 return apology("Er liep iets mis! Heb je alle scores correct ingevuld? Probeer het opnieuw.", 69)
-            
+
             db.execute("INSERT INTO games (idplayerone, idplayertwo, setsplayerone, setsplayertwo, winnerid) VALUES (:idplayerone, :idplayertwo, :setsplayerone, :setsplayertwo, :winnerid)",
             idplayerone=session.get("user_id"), idplayertwo=request.form.get("player2"), setsplayerone=setsplayerone, setsplayertwo=setsplayertwo, winnerid=winner)
             db.execute("UPDATE users SET won = won + 1, odds = odds - 5 WHERE id=:id", id=winner)
@@ -190,10 +191,14 @@ def input():
 
     else:
         matches = db.execute("""
-                                  SELECT idplayerone, idplayertwo, matchid
-                                    FROM games
-                                   WHERE (idplayerone = :id OR idplayertwo = :id) AND winnerid = null
-                                   """, id=session.get("user_id"))
+                   SELECT g.idplayerone, g.idplayertwo, g.matchid,
+                          p1.username playone,
+                          p2.username playtwo
+                     FROM games g
+                     JOIN users p1 ON g.idplayerone = p1.id
+                     JOIN users p2 ON g.idplayertwo = p2.id
+                     WHERE (g.idplayerone = :id OR g.idplayertwo = :id) AND g.winnerid = null
+                     """, id=session.get("user_id"))
         if len(matches) == 0:
             return apology("Sorry, op dit moment zijn er geen wedstrijden voor jou. kijk later nog eens terug.")
         else:
