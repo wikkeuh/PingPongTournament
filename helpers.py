@@ -43,8 +43,8 @@ def GenMatch(user, db):
 								WHERE id != :user AND active = 1
 								""", user = user)
 	# Generate the matches and put them in database
-	for oppontent in opponents:
+	for opponent in opponents:
 		db.execute("""
-					INSERT into GAMES (idplayerone, idplayertwo) VALUES (:user, :opponent)
+					INSERT into games (idplayerone, idplayertwo) VALUES (:user, :opponent)
 					""", user = user, opponent = opponent["id"])
 		print ( "entering",user,"vs",opponent["id"])
