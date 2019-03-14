@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Activeren
+{% endblock %}
+
+{% block main %}
+    <form action="/activate" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="key" placeholder="Activatie-code" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
+{% endblock %}

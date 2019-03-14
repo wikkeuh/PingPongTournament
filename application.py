@@ -140,8 +140,6 @@ def register():
                                   username=request.form.get("username"))
             session["user_id"] = rows[0]["id"]
             session["user_level"] = rows[0]["userlevel"]
-            userid = rows[0]["id"]
-            #GenMatch(userid, db=db)
             return redirect("/")
 
     # Via Get when not post
@@ -237,6 +235,21 @@ def userpage(id):
     print(userinfo)
     return render_template("user.html", userhistory=userhistory, userinfo=userinfo)
 
+@app.route("/activate", methods=["GET", "POST"])
+def activate():
+    if request.method== "POST":
+        keycheck = db.execute("""SELECT key FROM keys WHERE key=:key)""", key = request.form.get("key")
+        if len(keycheck) == 0:
+            return apology("Dit is geen geldige code, probeer het opnieuw")
+        else:
+            db.execute("""DELETE FROM keys WHERE key =:key""", key = request.form.get("key"))
+            db.execute("""UPDATE users SET active = 1 WHERE id=:id""", id = id=session.get("user_id"))
+            userid = session.get("user_id")
+            GenMatch(userid, db=db)
+            return apology("Je bent succesvol ingeschreven")
+    else:
+        render_template("activate.html)
+        
 def errorhandler(e):
     """Handle error"""
     if not isinstance(e, HTTPException):
