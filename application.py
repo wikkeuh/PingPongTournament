@@ -185,11 +185,13 @@ def input():
                 return apology("Er liep iets mis! Heb je alle scores correct ingevuld? Probeer het opnieuw.", 69)
 
             #TODO CHANGE TO UDPATE NOT INSERT
-            db.execute("""INSERT INTO games
-                                      (idplayerone, idplayertwo, winnerid, p1s1, p1s2, p1s3, p2s1, p2s2, p2s3)
-                               VALUES (:idplayerone, :idplayertwo, :winnerid, :p1s1, :p1s2, :p1s3, :p2s1, :p2s2, :p2s3 )""",
+            db.execute("""UPDATE games
+                             SET (idplayerone = :idplayerone, idplayertwo = :idplayertwo, winnerid = :winnerid,
+                                 p1s1 = :p1s1, p1s2 = :p1s2, p1s3 = :p1s3, p2s1 = :p2s1, p2s2 = :p2s2, p2s3 = :p2s3
+                           WHERE matchid = :matchid)""",
             idplayerone=session.get("user_id"), idplayertwo=request.form.get("player2"), winnerid=winner,
-            p1s1=results[0], p1s2=results[2], p1s3=results[4], p2s1=results[1], p2s2=results[3], p2s3=results[5])
+            p1s1=results[0], p1s2=results[2], p1s3=results[4], p2s1=results[1], p2s2=results[3], p2s3=results[5],
+            matchid = request.form.get("match"))
 
             # update wins and odds
             db.execute("UPDATE users SET won = won + 1, odds = odds - 5 WHERE id=:id", id=winner)
