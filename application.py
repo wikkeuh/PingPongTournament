@@ -246,6 +246,7 @@ def activate():
         else:
             #db.execute("DELETE FROM keys WHERE key =:key", key = request.form.get("key"))
             db.execute("UPDATE users SET active = 1 WHERE id=:id", id = session.get("user_id"))
+            session["active"] = rows[0]["active"]
             userid = session.get("user_id")
             GenMatch(userid, db=db)
             return apology("Je bent succesvol ingeschreven")
