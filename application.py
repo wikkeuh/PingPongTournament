@@ -136,7 +136,7 @@ def register():
             db.execute("""INSERT INTO users (username, hash) VALUES (:username, :hash)""",
                        username = request.form.get("username"), hash = generate_password_hash(request.form.get("password")))
             # Login the user and generate matches
-            rows = db.execute("""SELECT id, userlevel, active, FROM users WHERE username = :username""",
+            rows = db.execute("""SELECT id, userlevel, active FROM users WHERE username = :username""",
                                   username=request.form.get("username"))
             session["user_id"] = rows[0]["id"]
             session["user_level"] = rows[0]["userlevel"]
