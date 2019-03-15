@@ -159,13 +159,13 @@ def input():
         if len(checkcomp) >= 1:
             return apology("Je speelde reeds tegen deze tegenstander", 69)
         else:
+            sets = ["p1s1","p2s1","p1s2","p2s2","p1s3","p2s3",]
             results = []
             counter = 0
-            for i in range(1, 3):
-                for j in range(1, 4):
-                    results[counter] = request.form.get("p",i,"s",j)
-                    print(results[counter])
-                    counter += 1
+            for i in sets:
+                results.append(request.form.get(i))
+                print(results[counter])
+                counter += 1
             setsone = 0
             setstwo = 0
             for i in range (0, 6, 2):
@@ -176,17 +176,26 @@ def input():
             matchinfo = db.execute("""SELECT idplayerone, idplayertwo FROM games WHERE matchid=:matchid""", matchid = request.form.get("match"))
             if setsone > setstwo:
                 winner = matchinfo[0]["idplayerone"]
+                loser = matchinfo[0]["idplayertwo"]
+
             elif setsone < setstwo:
                 winner = matchinfo[0]["idplayertwo"]
+                loser = matchinfo[0]["idplayerone"]
             else:
                 return apology("Er liep iets mis! Heb je alle scores correct ingevuld? Probeer het opnieuw.", 69)
 
-            db.execute("INSERT INTO games (idplayerone, idplayertwo, setsplayerone, setsplayertwo, winnerid) VALUES (:idplayerone, :idplayertwo, :setsplayerone, :setsplayertwo, :winnerid)",
-            idplayerone=session.get("user_id"), idplayertwo=request.form.get("player2"), setsplayerone=setsplayerone, setsplayertwo=setsplayertwo, winnerid=winner)
+            #TODO CHANGE TO UDPATE NOT INSERT
+            db.execute("""INSERT INTO games
+                                      (idplayerone, idplayertwo, winnerid, p1s1, p1s2, p1s3, p2s1, p2s2, p2s3)
+                               VALUES (:idplayerone, :idplayertwo, :winnerid, :p1s1, :p1s2, :p1s3, :p2s1, :p2s2, :p2s3 )""",
+            idplayerone=session.get("user_id"), idplayertwo=request.form.get("player2"), winnerid=winner,
+            p1s1=results[0], p1s2=results[2], p1s3=results[4], p2s1=results[1], p2s2=results[3], p2s3=results[5])
+
+            # update wins and odds
             db.execute("UPDATE users SET won = won + 1, odds = odds - 5 WHERE id=:id", id=winner)
             db.execute("UPDATE users SET lost = lost + 1, odds = odds + 5 WHERE id=:id", id=loser)
 
-        return render_template("input.html")
+        return render_template("index.html")
 
     else:
         matches = db.execute("""
@@ -196,7 +205,7 @@ def input():
                      FROM games g
                      JOIN users p1 ON g.idplayerone = p1.id
                      JOIN users p2 ON g.idplayertwo = p2.id
-                     WHERE (g.idplayerone = :id OR g.idplayertwo = :id) AND g.winnerid = null
+                     WHERE (g.idplayerone = :id OR g.idplayertwo = :id)  AND g.winnerid IS NULL
                      """, id=session.get("user_id"))
         if len(matches) == 0:
             return apology("Sorry, op dit moment zijn er geen wedstrijden voor jou. kijk later nog eens terug.")
@@ -207,12 +216,13 @@ def input():
 @login_required
 def history():
     games = db.execute("""
-           SELECT g.idplayerone, g.idplayertwo, g.matchid, g.setsplayerone, g.setsplayertwo, g.winnerid, g.time,
+           SELECT g.idplayerone, g.idplayertwo, g.matchid, g.winnerid, g.time, g.p1s1, g.p1s2, g.p1s3, g.p2s1, g.p2s2, g.p2s3,
                   p1.username playone,
                   p2.username playtwo
              FROM games g
              JOIN users p1 ON g.idplayerone = p1.id
              JOIN users p2 ON g.idplayertwo = p2.id
+             WHERE g.winnerid IS NOT NULL
          ORDER BY g.time
             LIMIT 20
         """)
