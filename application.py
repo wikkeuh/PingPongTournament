@@ -186,7 +186,7 @@ def input():
 
             #TODO CHANGE TO UDPATE NOT INSERT
             db.execute("""UPDATE games
-                             SET (idplayerone = :idplayerone, idplayertwo = :idplayertwo, winnerid = :winnerid,
+                             SET (winnerid = :winnerid,
                                  p1s1 = :p1s1, p1s2 = :p1s2, p1s3 = :p1s3, p2s1 = :p2s1, p2s2 = :p2s2, p2s3 = :p2s3
                            WHERE matchid = :matchid)""",
             idplayerone=session.get("user_id"), idplayertwo=request.form.get("player2"), winnerid=winner,
