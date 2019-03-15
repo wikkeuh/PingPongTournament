@@ -189,7 +189,7 @@ def input():
                              SET (winnerid = :winnerid,
                                  p1s1 = :p1s1, p1s2 = :p1s2, p1s3 = :p1s3, p2s1 = :p2s1, p2s2 = :p2s2, p2s3 = :p2s3
                            WHERE matchid = :matchid)""",
-            idplayerone=session.get("user_id"), idplayertwo=request.form.get("player2"), winnerid=winner,
+            winnerid=winner,
             p1s1=results[0], p1s2=results[2], p1s3=results[4], p2s1=results[1], p2s2=results[3], p2s3=results[5],
             matchid = request.form.get("match"))
 
