@@ -196,7 +196,7 @@ def input():
             db.execute("UPDATE users SET won = won + 1, odds = odds - 5 WHERE id=:id", id=winner)
             db.execute("UPDATE users SET lost = lost + 1, odds = odds + 5 WHERE id=:id", id=loser)
 
-        return render_template("index.html")
+        return redirect("/")
 
     else:
         matches = db.execute("""
