@@ -22,7 +22,7 @@
 						{% if game["winnerid"] == game["idplayerone"] %}
                 		<span id="winner">
                 		{% endif %}
-                		{{ game["playone"] }}<b> : {{ game["setsplayerone"] }}</b>
+                		{{ game["playone"] }}
 		                {% if game["winnerid"] == game["idplayerone"] %}
         		        </span>
                 		{% endif %}
@@ -31,7 +31,7 @@
 						{% if game["winnerid"] == game["idplayertwo"] %}
                 		<span id="winner">
                 		{% endif %}
-                		{{ game["playtwo"] }}<b> : {{ game["setsplayertwo"] }}</b>
+                		{{ game["playtwo"] }}
                 		{% if game["winnerid"] == game["idplayertwo"] %}
                 		</span>
                 		{% endif %}
