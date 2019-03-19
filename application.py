@@ -45,7 +45,7 @@ def index():
 
 
     #SELECT all users information and render index page(klassement)
-    ranking = db.execute("SELECT username, id, cash, odds, won, lost, (won - lost) AS balance FROM users ORDER BY balance DESC ")
+    ranking = db.execute("SELECT username, id, won, lost, (won - lost) AS balance FROM users WHERE active = 1 ORDER BY balance DESC ")
     return render_template("index.html", userinfo=userinfo, ranking=ranking)
 
 
@@ -244,7 +244,7 @@ def history():
 @login_required
 def userpage(id):
     print(id)
-    userinfo = db.execute(""" SELECT username, won, lost, odds FROM users WHERE id=:id""", id=id)
+    userinfo = db.execute(""" SELECT username, won, lost, odds, cash FROM users WHERE id=:id""", id=id)
     userhistory = db.execute("""
            SELECT g.idplayerone, g.idplayertwo, g.matchid, g.winnerid, g.time,
                   p1.username playone,
