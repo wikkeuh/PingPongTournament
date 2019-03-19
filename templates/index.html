@@ -20,8 +20,6 @@
                     <th scope="col">Naam</th>
                     <th scope="col">Gewonnen</th>
                     <th scope="col">Verloren</th>
-                    <th scope="col">Odds</th>
-                    <th scope="col">cash</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,8 +29,6 @@
                 <td><a href="/user/{{ rank["id"] }}">{{ rank["username"] }}</a></td>
                 <td>{{ rank["won"] }}</td>
                 <td>{{ rank["lost"] }}</td>
-                <td>{{ rank["odds"] }}</td>
-                <td>{{ rank["cash"] }}</td>
 
                 </tr>
                 {% endfor %}

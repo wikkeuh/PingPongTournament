@@ -9,11 +9,13 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from helpers import apology, login_required, GenMatch
 
+
 # Configure application
 app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
 
 # Ensure responses aren't cached
 @app.after_request
@@ -28,11 +30,13 @@ def after_request(response):
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+
 # Configure CS50 Library to use SQLite database
 db = SQL("""postgres://ppaikjrazrltwg:d7b4bbbaa8d1470e42a97e2d58a4d7ba752d007ecfc85d67daf913a8284c3421@ec2-46-137-121-216.eu-west-1.compute.amazonaws.com:5432/df5rrijrug19j9
 """)
 
 
+#Generate indexpage
 @app.route("/")
 @login_required
 def index():
@@ -45,12 +49,14 @@ def index():
     return render_template("index.html", userinfo=userinfo, ranking=ranking)
 
 
+#Function the check username
 @app.route("/check", methods=["GET"])
 def check():
     """Return true if username available, else false, in JSON format"""
     return jsonify("TODO")
 
 
+#Login Page
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -91,6 +97,7 @@ def login():
         return render_template("login.html")
 
 
+#Logout Function
 @app.route("/logout")
 def logout():
     """Log user out"""
@@ -102,6 +109,7 @@ def logout():
     return redirect("/")
 
 
+#Register Function
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
@@ -138,15 +146,16 @@ def register():
             # Login the user and generate matches
             rows = db.execute("""SELECT id, userlevel, active FROM users WHERE username = :username""",
                                   username=request.form.get("username"))
+            #Set all session info
             session["user_id"] = rows[0]["id"]
             session["user_level"] = rows[0]["userlevel"]
             session["active"] = rows[0]["active"]
             return redirect("/")
-
     # Via Get when not post
     else:
         return render_template("register.html")
 
+#Funtion for game input
 @app.route("/input", methods=["GET", "POST"])
 @login_required
 def input():
@@ -213,6 +222,7 @@ def input():
         else:
             return render_template("input.html", matches=matches)
 
+
 @app.route("/history", methods=["GET"])
 @login_required
 def history():
@@ -228,6 +238,7 @@ def history():
             LIMIT 20
         """)
     return render_template("history.html", games=games)
+
 
 @app.route("/user/<int:id>")
 @login_required
@@ -246,6 +257,7 @@ def userpage(id):
         """, id=id)
     print(userinfo)
     return render_template("user.html", userhistory=userhistory, userinfo=userinfo)
+    
 
 @app.route("/activate", methods=["GET", "POST"])
 @login_required
@@ -257,7 +269,8 @@ def activate():
         else:
             #db.execute("DELETE FROM keys WHERE key =:key", key = request.form.get("key"))
             db.execute("UPDATE users SET active = 1 WHERE id=:id", id = session.get("user_id"))
-            session["active"] = rows[0]["active"]
+            check = db.execute("SELECT active FROM users WHERE id=:id", id = session.get("user_id"))
+            session["active"] = check[0]["active"]
             userid = session.get("user_id")
             GenMatch(userid, db=db)
             return apology("Je bent succesvol ingeschreven")
