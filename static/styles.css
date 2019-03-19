@@ -180,3 +180,7 @@ input[type=number]{
   color: #ffbbbc;
   background-color: #c0392b;
 }
+
+.title {
+	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", "sans-serif";
+}
