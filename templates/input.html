@@ -9,14 +9,13 @@
     <a>Selecteer een wedstrijd</a>
     <br>
     <form action="/input" method="post">
-        </br>
-        <select name="match">
+        <div class="form-group">
+        <select class="custom-select" name="match">
                 {% for match in matches %}
                       <option value="{{match["matchid"]}}">{{match["playone"]}} VS {{match["playtwo"]}}</option>
                 {% endfor %}
         </select>
-        </br>
-        </br>
+        </div>
         <table align="center">
         <tr><th colspan="2"><h3>Set 1</h3></th></tr>
         <tr><td>
@@ -58,6 +57,6 @@
         </div>
         </td></tr>
         </table>
-        <button class="btn btn-primary" type="submit">Invoeren</button>
+        <button class="btn btn-danger" type="submit">Invoeren</button>
     </form>
 {% endblock %}
