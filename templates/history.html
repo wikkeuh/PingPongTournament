@@ -7,7 +7,7 @@
 {% block main %}
 <table class="table table-sm table-hover table-striped">
             <thead>
-                <tr>
+                <tr style="background-color:#44474c; color:white">
                     <th scope="col">Wedstrijd #</th>
                     <th scope="col">speler 1</th>
                     <th scope="col">speler 2</th>
@@ -16,42 +16,36 @@
             </thead>
             <tbody>
                 {% for game in games %}
-                <tr style="background-color:red">
+                <tr style="background-color:red; color:white">
                     <th scope="col">{{ game["matchid"] }}</th>
                     <th scope="col">
 						{% if game["winnerid"] == game["idplayerone"] %}
-                		<span id="winner">
+						<img src="static/images/crown.png" alt="crown" height="20" width="20">
                 		{% endif %}
                 		{{ game["playone"] }}
-		                {% if game["winnerid"] == game["idplayerone"] %}
-        		        </span>
-                		{% endif %}
 						</th>
                     <th scope="col">
 						{% if game["winnerid"] == game["idplayertwo"] %}
-                		<span id="winner">
+                		<img src="static/images/crown.png" alt="crown" height="20" width="20">
                 		{% endif %}
                 		{{ game["playtwo"] }}
-                		{% if game["winnerid"] == game["idplayertwo"] %}
-                		</span>
-                		{% endif %}
 					</th>
                     <th scope="col">{{ game["time"] }}</th>
                 </tr>
                 <tr>
-                <td>SET 1</td>
+                <td>Set 1</td>
                 <td>{{ game["p1s1"] }}</td>
                 <td>{{ game["p2s1"] }}</td>
                 <td></td>
                 </tr>
 				<tr>
-                <td>SET 2</td>
+                <td>Set 2</td>
                 <td>{{ game["p1s2"] }}</td>
                 <td>{{ game["p2s2"] }}</td>
                 <td></td>
                 </tr>
 				<tr>
-                <td>SET 3</td>
+                <td>Set 3</td>
                 <td>{{ game["p1s3"] }}</td>
                 <td>{{ game["p2s3"] }}</td>
                 <td></td>
