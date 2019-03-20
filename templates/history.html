@@ -16,7 +16,7 @@
             </thead>
             <tbody>
                 {% for game in games %}
-                <tr>
+                <tr style="background-color:red">
                     <th scope="col">{{ game["matchid"] }}</th>
                     <th scope="col">
 						{% if game["winnerid"] == game["idplayerone"] %}
