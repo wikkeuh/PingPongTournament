@@ -172,7 +172,10 @@ def input():
             results = []
             counter = 0
             for i in sets:
-                results.append(request.form.get(i))
+                grab = request.form.get(i)
+                if not grab:
+                    grab = 0
+                results.append(grab)
                 print(results[counter])
                 counter += 1
             setsone = 0
