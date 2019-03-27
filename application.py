@@ -145,15 +145,14 @@ def input():
                 FormGrab = request.form.get(i)
                 if not FormGrab:
                     FormGrab = 0
-                results.append(FormGrab)
-                print(results[counter])
+                GameResults.append(FormGrab)
                 counter += 1
             setsone = 0
             setstwo = 0
             for i in range (0, 6, 2):
-                if results[i] > results[i+1]:
+                if GameResults[i] > GameResults[i+1]:
                     setsone += 1
-                if results[i] < results[i+1]:
+                if GameResults[i] < GameResults[i+1]:
                     setstwo += 1
             matchinfo = db.execute("""SELECT idplayerone, idplayertwo FROM games WHERE matchid=:matchid""",
                                       matchid = request.form.get("match"))
@@ -171,8 +170,8 @@ def input():
                                  p2s1=:p2s1, p2s2=:p2s2, p2s3=:p2s3, time=now()::timestamptz(0)
                            WHERE matchid = :matchid""",
                            winnerid=winner,
-                           p1s1=results[0], p1s2=results[2], p1s3=results[4],
-                           p2s1=results[1], p2s2=results[3], p2s3=results[5],
+                           p1s1=GameResults[0], p1s2=GameResults[2], p1s3=GameResults[4],
+                           p2s1=GameResults[1], p2s2=GameResults[3], p2s3=GameResults[5],
                            matchid = request.form.get("match"))
             # update wins and odds
             db.execute("UPDATE users SET won = won + 1, odds = odds - 5 WHERE id=:id", id=winner)

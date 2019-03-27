@@ -12,7 +12,7 @@
         <div class="form-group">
         <select class="custom-select" name="match">
                 {% for game in UnplayedGames %}
-                      <option value="{{match["matchid"]}}">{{game["playone"]}} VS {{game["playtwo"]}}</option>
+                      <option value="{{game["matchid"]}}">{{game["playone"]}} VS {{game["playtwo"]}}</option>
                 {% endfor %}
         </select>
         </div>
