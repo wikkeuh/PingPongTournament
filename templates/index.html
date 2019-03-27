@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-        <h2> Welkom <b>{{ userinfo[0]["username"] }} </b></h2>
+        <h2> Welkom <b>{{ username[0]["username"] }} </b></h2>
         {% if session.active == 0 %}
         <h1>Je bent niet ingeschreven, klik <a href="/activate"><b>HIER<b></a> om je in te schrijven.</h1></br>
         {% endif %}

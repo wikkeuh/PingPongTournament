@@ -34,7 +34,7 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-#Function to create match-ups for current user, matches with all excisting users
+#Function to create match-ups for current user, matches with all excisting active users
 def GenMatch(user, db):
 	#grab all users
 	opponents = db.execute("""

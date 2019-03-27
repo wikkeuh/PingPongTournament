@@ -11,8 +11,8 @@
     <form action="/input" method="post">
         <div class="form-group">
         <select class="custom-select" name="match">
-                {% for match in matches %}
-                      <option value="{{match["matchid"]}}">{{match["playone"]}} VS {{match["playtwo"]}}</option>
+                {% for game in UnplayedGames %}
+                      <option value="{{match["matchid"]}}">{{game["playone"]}} VS {{game["playtwo"]}}</option>
                 {% endfor %}
         </select>
         </div>
