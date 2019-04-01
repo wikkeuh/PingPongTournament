@@ -22,12 +22,12 @@
                 </tr>
             </thead>
             <tbody>
-                {% for rank in ranking %}
+                {% for user in ranking %}
                 <tr>
                 <td>{{ loop.index }}</td>
-                <td><a href="/user/{{ rank["id"] }}">{{ rank["username"] }}</a></td>
-                <td>{{ rank["won"] }}</td>
-                <td>{{ rank["lost"] }}</td>
+                <td><a href="/user/{{ user["id"] }}">{{ user["username"] }}</a></td>
+                <td>{{ user["won"] }}</td>
+                <td>{{ user["lost"] }}</td>
 
                 </tr>
                 {% endfor %}
