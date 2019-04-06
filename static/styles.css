@@ -188,3 +188,9 @@ input[type=number]{
 .title {
 	font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", "Arial Black", "sans-serif";
 }
+
+select {
+text-align-last: center;
+font-size: large;
+height: 20px;
+}
