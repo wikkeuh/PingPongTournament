@@ -44,6 +44,11 @@ function ValidSet1() {
   } else {
       winner1 = 2;
   }
+  if ((winner1 != winner2) & Set1Valid == 1 & Set2Valid == 1) {
+      document.getElementById("set3").style.display = "inline";
+  }  else {
+    document.getElementById("set3").style.display = "none";
+  }
   document.getElementById("ValidationSet1").innerHTML = text;
 }
 
@@ -78,15 +83,21 @@ function ValidSet2() {
         text = "";
         var Set2Valid = 1;
     }
+
   } else {
     text = "";
   }
-  document.getElementById("ValidationSet2").innerHTML = text;
   if (p1s2 > p2s2) {
-      winner1 = 1;
+      winner2 = 1;
   } else {
-      winner1 = 2;
+      winner2 = 2;
   }
+  if ((winner1 != winner2) & Set1Valid == 1 & Set2Valid == 1) {
+      document.getElementById("set3").style.display = "inline";
+  }  else {
+    document.getElementById("set3").style.display = "none";
+  }
+  document.getElementById("ValidationSet2").innerHTML = text;
 }
 
 function ValidSet3() {
@@ -124,9 +135,9 @@ function ValidSet3() {
     text = "";
   }
    if (p1s3 > p2s3) {
-      winner1 = 1;
+      winner3 = 1;
   } else {
-      winner1 = 2;
+      winner3 = 2;
   }
   document.getElementById("ValidationSet3").innerHTML = text;
 }
