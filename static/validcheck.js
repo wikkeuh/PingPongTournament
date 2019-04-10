@@ -1,6 +1,6 @@
 var Set1Valid = 0;
 var Set2Valid = 0;
-var Set3Valid = 0;
+var Set3Valid = 1;
 var winner1 = 0;
 var winner2 = 0;
 var winner3 = 0;
@@ -47,6 +47,7 @@ function ValidSet1() {
     document.getElementById("set3").style.display = "none";
     document.getElementById("p1s3").value = "0";
     document.getElementById("p2s3").value = "0";
+    Set3Valid = 1;
   }
 
 
@@ -103,6 +104,7 @@ function ValidSet2() {
     document.getElementById("set3").style.display = "none";
     document.getElementById("p1s3").value = "0";
     document.getElementById("p2s3").value = "0";
+    Set3Valid = 1;
   }
 
   if (Set2Valid == 1 & p1s2 != null & p2s2 != null) {
@@ -166,6 +168,10 @@ function ValidSet3() {
 function ValidateMatch() {
     if (Set3Valid != 1 || Set2Valid != 1 || Set1Valid != 1 ) {
         alert("Check de ingevulde scores.");
+        event.preventDefault();
+        returnToPreviousPage();
         return false;
+    } else {
+      return true;
     }
 }

@@ -20,13 +20,13 @@
                     <th scope="col">{{ game["matchid"] }}</th>
                     <th scope="col">
 						{% if game["winnerid"] == game["idplayerone"] %}
-						<img src="static/images/crown.png" alt="crown" height="20" width="20">
+						<img src="/static/images/crown.png" alt="crown" height="20" width="20">
                 		{% endif %}
                 		{{ game["playone"] }}
 						</th>
                     <th scope="col">
 						{% if game["winnerid"] == game["idplayertwo"] %}
-                		<img src="static/images/crown.png" alt="crown" height="20" width="20">
+                		<img src="/static/images/crown.png" alt="crown" height="20" width="20">
                 		{% endif %}
                 		{{ game["playtwo"] }}
 					</th>
@@ -44,12 +44,14 @@
                 <td>{{ game["p2s2"] }}</td>
                 <td></td>
                 </tr>
+                {% if game["p1s3"] != 0 or game["p2s3"] != 0 %}
 				<tr>
                 <td>Set 3</td>
                 <td>{{ game["p1s3"] }}</td>
                 <td>{{ game["p2s3"] }}</td>
                 <td></td>
                 </tr>
+                {% endif %}
                 {% endfor %}
 
             </tbody>

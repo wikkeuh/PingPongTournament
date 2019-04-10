@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block main %}
-<h1>{{ userinfo[0]["username"] }} </h1></br>
-<h2>Gewonnen :{{ userinfo[0]["won"] }}</br>
+<h2>{{ userinfo[0]["username"] }} </h1></br>
+<h4>Gewonnen :{{ userinfo[0]["won"] }}</br>
     Verloren: {{ userinfo[0]["lost"] }}</br>
-    Cash :{{ userinfo[0]["cash"] }}</h2></br>
+    </h2>
+    </br>
 <table class="table table-sm table-hover table-striped">
             <thead>
                 <tr>
@@ -25,28 +26,16 @@
 
                 <td>
                 {% if game["winnerid"] == game["idplayerone"] %}
-                <span id="winner">
+        		<img src="/static/images/crown.png" alt="crown" height="20" width="20">
                 {% endif %}
-
-                {{ game["playone"] }}<b> : {{ game["setsplayerone"] }}</b>
-
-                {% if game["winnerid"] == game["idplayerone"] %}
-                </span>
-                {% endif %}
+                {{ game["playone"] }}
                 </td>
-
                 <td>
                 {% if game["winnerid"] == game["idplayertwo"] %}
-                <span id="winner">
+                <img src="/static/images/crown.png" alt="crown" height="20" width="20">
                 {% endif %}
-
-                {{ game["playtwo"] }}<b> : {{ game["setsplayertwo"] }}</b>
-
-                {% if game["winnerid"] == game["idplayertwo"] %}
-                </span>
-                {% endif %}
+                {{ game["playtwo"] }}
                 </td>
-
                 <td>{{ game["time"] }}</td>
                 </tr>
                 {% endfor %}
