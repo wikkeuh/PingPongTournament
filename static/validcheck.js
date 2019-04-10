@@ -1,6 +1,6 @@
 var Set1Valid = 0;
 var Set2Valid = 0;
-var Set3Valid = 1;
+var Set3Valid = 0;
 var winner1 = 0;
 var winner2 = 0;
 var winner3 = 0;
@@ -123,31 +123,31 @@ function ValidSet3() {
   p2s3 = document.getElementById("p2s3").value;
 
   if (isNaN(p1s3) || isNaN(p2s3)) {
-    var Set3Valid = 0;
+    Set3Valid = 0;
   } else if (p1s3 == p2s3) {
-    var Set3Valid = 0;
+    Set3Valid = 0;
   } else if ( p1s3 < 0 || p2s3 < 0) {
     Set3Valid = 0;
   } else if (p1s3 < 21  & p2s3 < 21 ) {
-    var Set3Valid = 0;
+    Set3Valid = 0;
   } else if (p1s3 == 21  & p2s3 == 20 ) {
-    var Set3Valid = 0;
+    Set3Valid = 0;
   } else if (p2s3 == 21  & p1s3 == 20 ) {
-    var Set3Valid = 0;
+    Set3Valid = 0;
   } else if (p1s3 > 21  || p2s3 > 21 ) {
     if (((p1s3 - p2s3) != 2) & ((p2s3 - p1s3) != 2)) {
-        var Set3Valid = 0;
+        Set3Valid = 0;
     } else {
-        var Set3Valid = 1;
+        Set3Valid = 1;
     }
   } else if (p1s3 != null & p2s3 != null) {
-    var Set3Valid = 1;
+    Set3Valid = 1;
   } else {
-    var Set3Valid = 0;
+    Set3Valid = 0;
   }
 
   if ((p1s3 > p2s3) & Set3Valid == 1) {
-      winner2 = 1;
+      winner3 = 1;
   } else if ((p1s3 < p2s3) & Set3Valid == 1) {
       winner3 = 2;
   }
