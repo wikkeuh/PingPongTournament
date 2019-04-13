@@ -71,7 +71,7 @@ def login():
             return apology("invalid username and/or password", 403)
         # Remember which user has logged in and acceslevel of user
         session["user_id"] = rows[0]["id"]
-        session["user_level"] = rows[0]["userlevel"]
+        session["userlevel"] = rows[0]["userlevel"]
         session["active"] = rows[0]["active"]
         # Redirect user to home page
         return redirect("/")
@@ -235,7 +235,7 @@ def activate():
         if len(KeyValidation) == 0:
             return apology("Dit is geen geldige code, probeer het opnieuw.")
         else:
-            #db.execute("DELETE FROM keys WHERE key =:key", key = request.form.get("key"))
+            db.execute("DELETE FROM keys WHERE key =:key", key = request.form.get("key"))
             db.execute("UPDATE users SET active = 1 WHERE id=:id", id = session.get("user_id"))
             CheckActivation = db.execute("SELECT active FROM users WHERE id=:id", id = session.get("user_id"))
             session["active"] = CheckActivation[0]["active"]

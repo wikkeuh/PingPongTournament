@@ -43,6 +43,7 @@ function ValidSet1() {
 
   if (winner1 != winner2 & Set1Valid == 1 & Set2Valid == 1) {
       document.getElementById("set3").style.display = "table-row-group";
+      Set3Valid = 0;
   }  else {
     document.getElementById("set3").style.display = "none";
     document.getElementById("p1s3").value = "0";
@@ -100,11 +101,12 @@ function ValidSet2() {
 
   if (winner1 != winner2 & Set2Valid == 1 & Set1Valid == 1) {
       document.getElementById("set3").style.display = "table-row-group";
+      Set3Valid = 0;
   }  else {
     document.getElementById("set3").style.display = "none";
+    Set3Valid = 1;
     document.getElementById("p1s3").value = "0";
     document.getElementById("p2s3").value = "0";
-    Set3Valid = 1;
   }
 
   if (Set2Valid == 1 & p1s2 != null & p2s2 != null) {

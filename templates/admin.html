@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Wedstrijd invoeren
+{% endblock %}
+
+{% block main %}
+    <h1 style="margin-left:auto;margin-right:auto">Voer hier de resultaten in</h1>
+    <a>Selecteer een wedstrijd</a>
+    <br>
+    <form action="/input" method="post">
+        <div class="form-group">
+        <select class="custom-select" name="match" required>
+                <option value="" disabled selected>Kies een wedstrijd</option>
+                {% for game in UnplayedGames %}
+                      <option value="{{game["matchid"]}}">{{game["playone"]}} VS {{game["playtwo"]}}</option>
+                {% endfor %}
+        </select>
+        </div>
+        <table align="center">
+        <tr><th colspan="2"><h3>Set 1</h3></th></tr>
+        <tr><td>
+        <div class="form-group">
+            speler 1<br>
+            <input class="form-control" name="p1s1" id="p1s1" type="number" min="0" value="0" required oninput="ValidSet1()" >
+        </div>
+        </td>
+        <td>
+        <div class="form-group">
+            speler 2<br>
+            <input class="form-control" name="p2s1" id="p2s1" type="number" min="0" value="0" required oninput="ValidSet1()">
+        </div>
+        </td>
+        </tr>
+        <tr><th colspan="2"><p id="ValidationSet1" class="text-danger"></p></th></tr>
+        <tr><th colspan="2"><h3>Set 2</h3></th></tr>
+        <tr><td>
+        <div class="form-group">
+            speler 1<br>
+            <input class="form-control" name="p1s2" id="p1s2" type="number" min="0" value="0" required oninput="ValidSet2()">
+        </div>
+        </td>
+        <td>
+        <div class="form-group">
+            speler 2<br>
+            <input class="form-control" name="p2s2" id="p2s2" type="number" min="0" value="0" required oninput="ValidSet2()">
+        </div>
+        </td></tr>
+        <tr><th colspan="2"><p id="ValidationSet2" class="text-danger"></p></th></tr>
+        <tbody id="set3" style="display:none">
+        <tr><th colspan="2"><h3>Set 3(optioneel)</h3></th></tr>
+        <tr><td>
+        <div class="form-group">
+            speler 1<br>
+            <input class="form-control" name="p1s3" id="p1s3" type="number" placeholder="optioneel" value="0" min="0" oninput="ValidSet3()">
+        </div>
+        </td>
+        <td>
+        <div class="form-group">
+            speler 2<br>
+            <input class="form-control" name="p2s3" id="p2s3" type="number" placeholder="optioneel" value="0" min="0" oninput="ValidSet3()">
+        </div>
+        </td></tr>
+        <tr><th colspan="2"><p id="ValidationSet3" class="text-danger"></p></th></tr>
+        </tbody>
+        </table>
+        <p id="Message"></p>
+        <button class="btn btn-danger" type="submit" onclick="ValidateMatch();">Invoeren</button>
+    </form>
+
+<script src="/static/validcheck.js"></script>
+{% endblock %}
