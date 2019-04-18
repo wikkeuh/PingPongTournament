@@ -245,10 +245,19 @@ def activate():
     else:
         return render_template("activate.html")
 
-#@app.route("/admin", methods=["GET", "POST"])
-#@login_required
-#def activate():
-    #ToDo
+@app.route("/admin", methods=["GET", "POST"])
+@login_required
+def admin():
+    if request.method == "POST":
+        KeyForm = request.form.get("NewKey")
+        if KeyForm:
+            db.execute("INSERT INTO keys VALUES (:key)", key=KeyForm)
+        keys = db.execute("SELECT * FROM keys")
+        return render_template("admin.html", keys=keys)
+    else:
+        keys = db.execute("SELECT * FROM keys")
+        return render_template("admin.html", keys=keys)
+
 
 def errorhandler(e):
     """Handle error"""
