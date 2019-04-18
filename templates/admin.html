@@ -9,7 +9,7 @@
         <input class="form-control" name="NewKey" type="number" min="0" value="0" required>
         <button class="btn btn-danger" type="submit" onclick="ValidateMatch();">Invoeren</button>
     </form>
-{% for key in Keys %}
+{% for key in keys %}
 {{ key["key"] }}</br>
 {% endfor %}
 {% endblock %}
