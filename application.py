@@ -150,21 +150,31 @@ def input():
             setsone = 0
             setstwo = 0
             for i in range (0, 6, 2):
-                if GameResults[i] > GameResults[i+1]:
+                print (i)
+                if int(GameResults[i]) > int(GameResults[i+1]):
+                    print (GameResults[i], ">", GameResults[i+1])
                     setsone += 1
-                if GameResults[i] < GameResults[i+1]:
+                    print (i)
+                    print ("set", i, "wordt gewonnen door speler 1 met:",GameResults[i], GameResults[i+1] )
+                print (i)
+                if int(GameResults[i]) < int(GameResults[i+1]):
+                    print (GameResults[i], "<", GameResults[i+1])
                     setstwo += 1
+                    print (i)
+                    print ("set", i, "wordt gewonnen door speler 2 met:",GameResults[i], GameResults[i+1] )
             matchinfo = db.execute("""SELECT idplayerone, idplayertwo FROM games WHERE matchid=:matchid""",
                                       matchid = request.form.get("match"))
             if setsone > setstwo:
                 winner = matchinfo[0]["idplayerone"]
                 loser = matchinfo[0]["idplayertwo"]
+                print ( winner, "wint tegen", loser, "met",setsone,"-", setstwo)
             elif setsone < setstwo:
                 winner = matchinfo[0]["idplayertwo"]
                 loser = matchinfo[0]["idplayerone"]
+                print ( winner, "wint tegen", loser, "met",setstwo,"-", setsone)
             else:
                 return apology("Er liep iets mis! Heb je alle scores correct ingevuld? Probeer het opnieuw.", 69)
-            #TODO CHANGE TO UDPATE NOT INSERT
+            print (GameResults, setsone, setstwo, matchinfo[0]["idplayerone"], matchinfo[0]["idplayertwo"], winner, loser)
             db.execute("""UPDATE games
                              SET winnerid=:winnerid, p1s1=:p1s1, p1s2=:p1s2, p1s3=:p1s3,
                                  p2s1=:p2s1, p2s2=:p2s2, p2s3=:p2s3, time=now()::timestamptz(0)

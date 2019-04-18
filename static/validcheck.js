@@ -19,6 +19,10 @@ function ValidSet1() {
     Set1Valid = 0;
   } else if (p1s1 < 21  & p2s1 < 21 ) {
     Set1Valid = 0;
+  } else if (p1s1 == 21  & p2s1 == 0 ) {
+    Set1Valid = 1;
+  } else if (p1s1 == 0  & p2s1 == 21 ) {
+    Set1Valid = 1;
   } else if (p1s1 == 21  & p2s1 == 20 ) {
     Set1Valid = 0;
   } else if (p2s1 == 21  & p1s1 == 20 ) {
@@ -77,6 +81,10 @@ function ValidSet2() {
     Set2Valid = 0;
   } else if (p1s2 < 21  & p2s2 < 21 ) {
     Set2Valid = 0;
+  } else if (p1s2 == 21  & p2s2 == 0 ) {
+    Set2Valid = 1;
+  } else if (p1s2 == 0  & p2s2 == 21 ) {
+    Set2Valid = 1;
   } else if (p1s2 == 21  & p2s2 == 20 ) {
     Set2Valid = 0;
   } else if (p2s2 == 21  & p1s2 == 20 ) {
@@ -134,6 +142,10 @@ function ValidSet3() {
     Set3Valid = 0;
   } else if (p1s3 < 21  & p2s3 < 21 ) {
     Set3Valid = 0;
+  } else if (p1s3 == 21  & p2s3 == 0 ) {
+    Set3Valid = 1;
+  } else if (p1s3 == 0  & p2s3 == 21 ) {
+    Set3Valid = 1;
   } else if (p1s3 == 21  & p2s3 == 20 ) {
     Set3Valid = 0;
   } else if (p2s3 == 21  & p1s3 == 20 ) {
